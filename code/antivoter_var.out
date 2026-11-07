@@ -1,0 +1,4 @@
+4 graphs 1 top: [(np.float64(1.6), 3, True)] K_n formula 1.6
+5 graphs 1 top: [(np.float64(2.142857), 4, True)] K_n formula 2.142857
+6 graphs 3 top: [(np.float64(2.666667), 5, True), (np.float64(2.4), 4, False), (np.float64(1.945946), 3, False)] K_n formula 2.666667
+7 graphs 3 top: [(np.float64(3.181818), 6, True), (np.float64(2.706667), 4, False), (np.float64(2.465347), 4, False)] K_n formula 3.181818

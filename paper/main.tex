@@ -1,0 +1,274 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,booktabs}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\one}{\mathbf{1}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\tr}{tr}
+
+\hypersetup{pdftitle={The complete graph maximizes the variance of the antivoter model},pdfauthor={Yitzchak Shmalo}}
+
+\title[The antivoter variance]{The complete graph maximizes the variance of the antivoter model}
+\author{Yitzchak Shmalo}
+\address{Einstein Institute of Mathematics, The Hebrew University of Jerusalem, Jerusalem, Israel}
+\email{yitzchak.shmalo@gmail.com}
+\date{8 November 2026}
+
+\begin{document}
+
+\begin{abstract}
+In the antivoter model on a finite graph each vertex, at rate one, adopts the opinion opposite to that of a uniformly
+chosen neighbour. Let $S$ be the sum of the $\pm1$ opinions in stationarity. Aldous and Fill asked whether, among
+regular graphs on $n$ vertices, $\Var S$ is largest for the complete graph, where it equals $n(n-2)/(2n-3)$. We prove
+that it is: for every connected non-bipartite regular graph on $n\ge3$ vertices and every stationary distribution,
+$\Var S\le n(n-2)/(2n-3)$, with equality only for $K_n$. The proof writes the pair correlations as the solution of a
+Sylvester equation and reduces the question to a lower bound on the diagonal of $(I+P)^{-1}$, where $P$ is the
+transition matrix of simple random walk. For vertex-transitive graphs the same argument gives
+$\Var S=n^2/\bigl(2\sum_i(1+\lambda_i)^{-1}\bigr)$, the sum running over the eigenvalues of $P$.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let $G=(V,E)$ be a finite connected $d$-regular graph on $n\ge3$ vertices. The antivoter model on $G$ is the
+continuous-time Markov chain on $\{-1,1\}^V$ in which each vertex $v$, at the times of a rate-one Poisson clock,
+chooses a neighbour $u$ uniformly at random and sets $\eta_v\coloneqq-\eta_u$. On finite graphs it was studied by
+Donnelly and Welsh~\cite{DW}, who showed that when $G$ is neither bipartite nor a cycle the chain is
+irreducible on the $2^n-2$ non-constant configurations; on a bipartite graph it is absorbed in one of the two proper
+$2$-colourings. Write $S=\sum_v\eta_v$ for the opinion margin under a stationary distribution. The antivoter model is a
+standard test case for normal approximation by Stein's method~\cite{RR,Ross}, where $\Var S$ enters as the
+normalising constant.
+
+Section~14.4 of Aldous and Fill~\cite{AF} develops the variance theory: $\E S=0$, $\Var S<n/2$ for every such graph
+(their Proposition~14.22), $2\kappa/d\le\Var S$ with $\kappa$ a cut parameter (Corollary~14.21), and for the complete
+graph the correlation of two distinct vertices is $-1/(2n-3)$, so that
+\begin{equation}\label{eq:Kn}
+\Var S=\frac{n(n-2)}{2n-3}\qquad (G=K_n).
+\end{equation}
+They then ask for a proof that $\Var S$ is maximized by the complete graph, and remark that this might follow from a
+sharpening of the inequality behind $\Var S<n/2$. We answer the question.
+
+\begin{theorem}\label{thm:main}
+Let $G$ be a connected non-bipartite $d$-regular graph on $n\ge3$ vertices, and let $\eta$ have any stationary
+distribution of the antivoter model on $G$. Then
+\[
+\Var S\le\frac{n(n-2)}{2n-3},
+\]
+with equality if and only if $G=K_n$.
+\end{theorem}
+
+The hypothesis that $G$ is not a cycle, needed for irreducibility, plays no role: the bound holds for every stationary
+distribution, and the odd cycles are covered. Bipartite graphs are excluded because there the stationary distributions are
+mixtures of the two proper colourings, on which $S=\pm(|A|-|B|)$ for the colour classes $A,B$, so $\Var S$ can be of
+order $n^2$.
+
+The argument also yields an exact formula for vertex-transitive graphs. Let $P=A_G/d$ be the transition matrix of
+simple random walk, with eigenvalues $1=\lambda_1>\lambda_2\ge\dots\ge\lambda_n>-1$.
+
+\begin{corollary}\label{cor:vt}
+If $G$ is in addition vertex-transitive, then
+\[
+\Var S=\frac{n^2}{2\sum_{i=1}^n(1+\lambda_i)^{-1}}.
+\]
+\end{corollary}
+
+For $K_n$ the eigenvalues are $1$ and $-1/(n-1)$ with multiplicity $n-1$, and the corollary returns~\eqref{eq:Kn}. For
+the octahedron $K_{2,2,2}$ ($\lambda=1,0,0,0,-\tfrac12,-\tfrac12$) it gives $36/15=2.4$, and for the prism $C_3\times
+K_2$ ($\lambda=1,\tfrac13,0,0,-\tfrac23,-\tfrac23$) it gives $36/18.5\approx1.9459$; both agree with the exact solution
+of the correlation equations in Table~\ref{tab:small}.
+
+\section{The correlation equations}
+
+Fix a stationary distribution and put $c(v,w)=\E[\eta_v\eta_w]$, so $c(v,v)=1$, and let $C=(c(v,w))_{v,w\in V}$. Let
+$Q=I+P$. Since $G$ is connected and not bipartite, the eigenvalues of $P$ lie in $(-1,1]$, so $Q$ is symmetric and
+positive definite with $Q\one=2\one$.
+
+\begin{lemma}\label{lem:eq}
+$\E\eta_v=0$ for every $v$, and there are numbers $\delta_v\ge0$ such that
+\begin{equation}\label{eq:syl}
+QC+CQ=D,\qquad D=\operatorname{diag}(\delta_v),\qquad \delta_v=2\Bigl(1+\frac1d\sum_{u\sim v}c(u,v)\Bigr).
+\end{equation}
+Moreover $\Var S=\tfrac14\sum_v\delta_v$.
+\end{lemma}
+
+\begin{proof}
+Under stationarity the generator applied to any function has mean zero. For $f(\eta)=\eta_v$ only the clock at $v$
+changes $f$, and it replaces $\eta_v$ by $-\eta_u$ with $u$ a uniform neighbour, so $0=-\E\eta_v-(Pm)_v$ with
+$m_v=\E\eta_v$. Thus $Qm=0$ and $m=0$. For $f(\eta)=\eta_v\eta_w$ with $v\ne w$, the clocks at $v$ and at $w$ each change
+$f$, and
+\[
+0=-2c(v,w)-\sum_{u}P(v,u)c(u,w)-\sum_{u}P(w,u)c(v,u),
+\]
+which is the $(v,w)$ entry of $QC+CQ=0$ off the diagonal (the term $u=w$ in the first sum is $c(w,w)=1$, as it should
+be, since $\eta_w\eta_w=1$). Hence $QC+CQ$ is diagonal; its $(v,v)$ entry is $2(QC)_{vv}=2(1+(PC)_{vv})$, which is the
+$\delta_v$ of~\eqref{eq:syl}, and $\delta_v\ge0$ because $|c|\le1$. Finally, $\E S=0$ by the first part, and
+multiplying~\eqref{eq:syl} by $\one$ on both sides gives $4\,\one^{\top}C\one=\sum_v\delta_v$, since $Q\one=2\one$ and
+$Q$ is symmetric; and $\one^{\top}C\one=\E S^2=\Var S$.
+\end{proof}
+
+In terms of correlations, Lemma~\ref{lem:eq} says $\Var S=\frac n2(1+\bar c)$, where $\bar c$ is the average of
+$c(u,v)$ over the $nd/2$ edges; this is Lemma~14.20 of~\cite{AF} in another form, and Corollary~14.24 there when $G$ is
+edge-transitive.
+
+\begin{lemma}\label{lem:rep}
+With $m_u=(Q^{-1})_{uu}$,
+\[
+\sum_{u\in V}\delta_u\,m_u=2n.
+\]
+\end{lemma}
+
+\begin{proof}
+The linear map $X\mapsto QX+XQ$ on symmetric matrices has eigenvalues $(1+\lambda_i)+(1+\lambda_j)>0$, so it is
+invertible and~\eqref{eq:syl} determines $C$ from $D$. Since $e^{-tQ}\to0$ exponentially fast, the matrix
+$\int_0^\infty e^{-tQ}De^{-tQ}\,dt$ is well defined, and it solves~\eqref{eq:syl}, because
+$Q(\cdot)+(\cdot)Q$ applied to the integrand is $-\frac{d}{dt}\bigl(e^{-tQ}De^{-tQ}\bigr)$. Hence
+\[
+C=\int_0^\infty e^{-tQ}De^{-tQ}\,dt,\qquad
+1=c(v,v)=\sum_u\delta_u\int_0^\infty\bigl(e^{-tQ}\bigr)_{vu}^2\,dt.
+\]
+Summing over $v$ and using the symmetry of $e^{-tQ}$,
+\[
+n=\sum_u\delta_u\int_0^\infty\bigl(e^{-2tQ}\bigr)_{uu}\,dt=\frac12\sum_u\delta_u\bigl(Q^{-1}\bigr)_{uu}.\qedhere
+\]
+\end{proof}
+
+\section{The diagonal of \texorpdfstring{$(I+P)^{-1}$}{(I+P)\^{}(-1)}}
+
+\begin{lemma}\label{lem:diag}
+For every vertex $u$,
+\[
+\bigl(Q^{-1}\bigr)_{uu}\ge\frac{2n-3}{2(n-2)},
+\]
+with equality if and only if $u$ is adjacent to every other vertex.
+\end{lemma}
+
+\begin{proof}
+Write $e_u=a+b$ with $a=\one/n$ and $b=e_u-\one/n\perp\one$. Since $\one$ is an eigenvector of $Q$ with eigenvalue $2$,
+the cross terms vanish and
+\[
+\bigl(Q^{-1}\bigr)_{uu}=a^{\top}Q^{-1}a+b^{\top}Q^{-1}b=\frac1{2n}+b^{\top}Q^{-1}b .
+\]
+By the Cauchy--Schwarz inequality applied to $Q^{1/2}b$ and $Q^{-1/2}b$,
+$(b^{\top}b)^2\le(b^{\top}Qb)(b^{\top}Q^{-1}b)$, with equality if and only if $Qb$ is a multiple of $b$. Here
+$b^{\top}b=1-\frac1n$, and since $P(u,u)=0$,
+\[
+b^{\top}Qb=e_u^{\top}Qe_u-a^{\top}Qa=1-\frac2n>0 .
+\]
+Therefore
+\[
+\bigl(Q^{-1}\bigr)_{uu}\ge\frac1{2n}+\frac{(n-1)^2}{n(n-2)}=\frac{2n-3}{2(n-2)} .
+\]
+For the case of equality, $Pb=\frac1d\one_{N(u)}-\frac1n\one$, where $N(u)$ is the neighbourhood of $u$. If $Pb=\mu b$,
+then the coordinate $u$ gives $-\frac1n=\mu(1-\frac1n)$, so $\mu=-\frac1{n-1}$, while a coordinate $w\notin
+N(u)\cup\{u\}$ would give $-\frac1n=-\frac{\mu}n$, so $\mu=1$. Hence equality forces $N(u)=V\setminus\{u\}$.
+Conversely, if $u$ is adjacent to all other vertices then $d=n-1$, $G=K_n$, and one checks directly that
+$Pb=-\frac1{n-1}b$.
+\end{proof}
+
+Using only $(Q^{-1})_{uu}\ge1/Q_{uu}=1$ in place of Lemma~\ref{lem:diag}, the argument below gives $\Var S\le n/2$,
+which is Proposition~14.22 of~\cite{AF} with a non-strict inequality. The gain comes from treating the constant vector,
+on which $Q$ acts by $2$ rather than by something near $1$, separately.
+
+\section{Proofs}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Put $m^*=\frac{2n-3}{2(n-2)}$. By Lemmas~\ref{lem:rep} and~\ref{lem:diag}, and $\delta_u\ge0$,
+\[
+2n=\sum_u\delta_um_u\ge m^*\sum_u\delta_u=4m^*\Var S ,
+\]
+so $\Var S\le n/(2m^*)=n(n-2)/(2n-3)$. If $G\ne K_n$, then $G$, being regular, has no vertex adjacent to all others, so
+$m_u>m^*$ for every $u$ by Lemma~\ref{lem:diag}; and $\sum_u\delta_u>0$ by Lemma~\ref{lem:rep}. Hence the inequality is
+strict. If $G=K_n$, every $m_u$ equals $m^*$ and equality holds, in agreement with~\eqref{eq:Kn}.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:vt}]
+The linear system of Lemma~\ref{lem:eq} (the off-diagonal entries of~\eqref{eq:syl} together with $c(v,v)=1$) has
+at most one solution. Indeed, the difference $E$ of two solutions has zero diagonal and $QE+EQ=F$ diagonal, so by the
+proof of Lemma~\ref{lem:rep} $E=\int_0^\infty e^{-tQ}Fe^{-tQ}\,dt$, and its diagonal is $Mf$, where $f$ is the diagonal
+of $F$ and $M=\int_0^\infty e^{-tQ}\circ e^{-tQ}\,dt$. By the Schur product theorem $M$ is positive definite, so $f=0$
+and $E=0$. Every automorphism $\sigma$ of $G$ preserves the antivoter dynamics, so $c(\sigma v,\sigma w)$ also solves
+the system. Hence $c$ is
+automorphism-invariant, and on a vertex-transitive graph both $\delta_u=\delta$ and $m_u=\frac1n\tr Q^{-1}$ are
+constant. Lemma~\ref{lem:rep} gives $\delta\tr Q^{-1}=2n$, and Lemma~\ref{lem:eq} gives
+$\Var S=\frac n4\delta=\frac{n^2}{2\tr Q^{-1}}$, with $\tr Q^{-1}=\sum_i(1+\lambda_i)^{-1}$.
+\end{proof}
+
+\section{Numerical check}
+
+The correlation equations of Lemma~\ref{lem:eq} form a linear system in the $\binom n2$ unknowns $c(v,w)$, $v\ne w$,
+which we solved exactly for every connected non-bipartite regular graph on at most seven vertices, excluding cycles
+(Table~\ref{tab:small}), and for $297$ random connected non-bipartite regular graphs with $5\le n\le14$ and $3\le d\le
+n-1$. In every case $\Var S\le n(n-2)/(2n-3)$ with equality exactly for $K_n$, and every diagonal entry of
+$(I+P)^{-1}$ was at least $m^*$, strictly so when $d<n-1$. The formula of Corollary~\ref{cor:vt} agrees with the exact
+solution to within $4\cdot10^{-15}$ on eight non-bipartite vertex-transitive graphs, among them the Petersen graph
+($\Var S=40/13$), $C_3\times C_3$, two circulants and the cycle $C_7$ (where $\Var S=1$).
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+\toprule
+$n$ & graph & $d$ & $\Var S$\\
+\midrule
+4 & $K_4$ & 3 & 1.6000\\
+5 & $K_5$ & 4 & 2.1429\\
+6 & $K_6$ & 5 & 2.6667\\
+6 & octahedron & 4 & 2.4000\\
+6 & prism $C_3\times K_2$ & 3 & 1.9459\\
+7 & $K_7$ & 6 & 3.1818\\
+7 & $4$-regular (two graphs) & 4 & 2.7067,\ 2.4653\\
+\bottomrule
+\end{tabular}
+\caption{Exact stationary variance of $S$ on every connected non-bipartite regular graph with at most seven vertices,
+cycles excluded.}\label{tab:small}
+\end{table}
+
+\section*{Acknowledgements and funding}
+The research presented in this paper was supported by the European Research
+Council (ERC) under the European Union's Horizon Europe research and
+innovation programme (grant agreement No.~101041711), by the Simons
+Foundation as part of the Collaboration on the Mathematical and Scientific
+Foundations of Deep Learning, by Heights Labs, by Convex Nexus Capital, by
+the Israel Science Foundation (grant number 2258/19), and by the Israel
+Science Foundation (ISF Grant 4101/25). Computational resources were
+provided in part by Google Cloud through its education credits program
+(credit 530550103).
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and
+has a management role at Convex Nexus Capital. These entities are included
+in the funding declaration above.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+The paper comes out of Math Brain, an ongoing project on the use of AI systems for research mathematics. In November 2026
+Claude Opus~5.5 (Anthropic), working in Claude Code, found the proofs, wrote and ran the computations of
+Table~\ref{tab:small}, and wrote the paper. The author directed the work and is responsible for the content of the
+paper and for decisions concerning its dissemination.
+
+\section*{Data availability}
+No data were used. The code for Table~\ref{tab:small} and for the random-graph check, with its output, is available at
+\url{https://github.com/yspennstate/antivoter-variance-complete-graph}.
+
+\begin{thebibliography}{9}
+\bibitem{AF} D.~Aldous and J.~A.~Fill, \emph{Reversible Markov Chains and Random Walks on Graphs}, unfinished
+monograph, 2002 (recompiled 2014), \url{https://www.stat.berkeley.edu/~aldous/RWG/book.html}, Section~14.4.
+\bibitem{DW} P.~Donnelly and D.~Welsh, \emph{The antivoter problem: random $2$-colourings of graphs}, in Graph Theory
+and Combinatorics (Cambridge, 1983), Academic Press, London, 1984.
+\bibitem{RR} Y.~Rinott and V.~Rotar, \emph{On coupling constructions and rates in the CLT for dependent summands with
+applications to the antivoter model and weighted $U$-statistics}, Ann. Appl. Probab. \textbf{7} (1997), 1080--1105.
+\bibitem{Ross} N.~Ross, \emph{Fundamentals of Stein's method}, Probab. Surv. \textbf{8} (2011), 210--293.
+\end{thebibliography}
+
+\end{document}

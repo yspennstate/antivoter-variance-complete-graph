@@ -1,0 +1,10 @@
+Petersen             n=10 d=3 VarS=3.0769230769 formula=3.0769230769 Kn=4.7059
+K_{2,2,2}            n= 6 d=4 VarS=2.4000000000 formula=2.4000000000 Kn=2.6667
+prism C3xK2          n= 6 d=3 VarS=1.9459459459 formula=1.9459459459 Kn=2.6667
+C5xK2                n=10 d=3 VarS=2.1674876847 formula=2.1674876847 Kn=4.7059
+C3xC3                n= 9 d=4 VarS=3.4615384615 formula=3.4615384615 Kn=4.2000
+circulant(11;1,3)    n=11 d=4 VarS=3.2368742369 formula=3.2368742369 Kn=5.2105
+circulant(13;1,5)    n=13 d=4 VarS=4.4285714286 formula=4.4285714286 Kn=6.2174
+Moebius-Kantor bipartite, skipped
+C7                   n= 7 d=2 VarS=1.0000000000 formula=1.0000000000 Kn=3.1818
+max |formula - exact| 3.552713678800501e-15
