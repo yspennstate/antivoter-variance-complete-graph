@@ -1,0 +1,6 @@
+# direct simulation of the antivoter dynamics, 4000 chains, seed 20261108
+K5        n= 5  sim 2.1423 +- 0.0007   VT formula 2.1429   K_n bound 2.1429
+K7        n= 7  sim 3.1817 +- 0.0011   VT formula 3.1818   K_n bound 3.1818
+Petersen  n=10  sim 3.0771 +- 0.0010   VT formula 3.0769   K_n bound 4.7059
+C7        n= 7  sim 1.0000 +- 0.0000   VT formula 1.0000   K_n bound 3.1818
+C9(1,3)   n= 9  sim 3.0246 +- 0.0011   VT formula 3.0237   K_n bound 4.2000
