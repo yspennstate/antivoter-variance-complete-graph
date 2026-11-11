@@ -45,12 +45,15 @@ $\Var S=n^2/\bigl(2\sum_i(1+\lambda_i)^{-1}\bigr)$, the sum running over the eig
 
 Let $G=(V,E)$ be a finite connected $d$-regular graph on $n\ge3$ vertices. The antivoter model on $G$ is the
 continuous-time Markov chain on $\{-1,1\}^V$ in which each vertex $v$, at the times of a rate-one Poisson clock,
-chooses a neighbour $u$ uniformly at random and sets $\eta_v\coloneqq-\eta_u$. On finite graphs it was studied by
+chooses a neighbour $u$ uniformly at random and sets $\eta_v\coloneqq-\eta_u$. The model goes back to Matloff's
+dissonant voting model on the integer lattice~\cite{Matloff}. On finite graphs it was studied by
 Donnelly and Welsh~\cite{DW}, who showed that when $G$ is neither bipartite nor a cycle the chain is
 irreducible on the $2^n-2$ non-constant configurations; on a bipartite graph it is absorbed in one of the two proper
 $2$-colourings. Write $S=\sum_v\eta_v$ for the opinion margin under a stationary distribution. The antivoter model is a
 standard test case for normal approximation by Stein's method~\cite{RR,Ross}, where $\Var S$ enters as the
-normalising constant.
+normalising constant. Huber and Reinert~\cite{HR} give an exact sampling algorithm for the stationary distribution,
+describe it in closed form on the complete graph, and bound its distance from the complete-graph law on multipartite
+graphs by Stein's method.
 
 Section~14.4 of Aldous and Fill~\cite{AF} develops the variance theory: $\E S=0$, $\Var S<n/2$ for every such graph
 (their Proposition~14.22), $2\kappa/d\le\Var S$ with $\kappa$ a cut parameter (Corollary~14.21), and for the complete
@@ -269,9 +272,15 @@ The paper is part of the Math Brain project, whose public repository is \url{htt
 \bibitem{AF} D.~Aldous and J.~A.~Fill, \emph{Reversible Markov Chains and Random Walks on Graphs}, unfinished
 monograph, 2002 (recompiled 2014), \url{https://www.stat.berkeley.edu/~aldous/RWG/book.html}, Section~14.4.
 \bibitem{DW} P.~Donnelly and D.~Welsh, \emph{The antivoter problem: random $2$-colourings of graphs}, in Graph Theory
-and Combinatorics (Cambridge, 1983), Academic Press, London, 1984.
+and Combinatorics (Cambridge, 1983), B.~Bollob\'as, ed., Academic Press, London, 1984, 133--144.
+\bibitem{HR} M.~Huber and G.~Reinert, \emph{The stationary distribution in the antivoter model: exact sampling and
+approximations}, in Stein's Method: Expository Lectures and Applications, IMS Lecture Notes Monogr. Ser.
+\textbf{46}, Inst. Math. Statist., Beachwood, OH, 2004, 79--94, \url{https://doi.org/10.1214/lnms/1196283801}.
+\bibitem{Matloff} N.~S.~Matloff, \emph{Ergodicity conditions for a dissonant voting model}, Ann. Probab. \textbf{5}
+(1977), 371--386, \url{https://doi.org/10.1214/aop/1176995798}.
 \bibitem{RR} Y.~Rinott and V.~Rotar, \emph{On coupling constructions and rates in the CLT for dependent summands with
-applications to the antivoter model and weighted $U$-statistics}, Ann. Appl. Probab. \textbf{7} (1997), 1080--1105.
+applications to the antivoter model and weighted $U$-statistics}, Ann. Appl. Probab. \textbf{7} (1997), 1080--1105,
+\url{https://doi.org/10.1214/aoap/1043862425}.
 \bibitem{Ross} N.~Ross, \emph{Fundamentals of Stein's method}, Probab. Surv. \textbf{8} (2011), 210--293.
 \bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026, \url{https://github.com/yspennstate/math-brain-public}.
 
