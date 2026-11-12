@@ -24,7 +24,7 @@
 \author{Yitzchak Shmalo}
 \address{Einstein Institute of Mathematics, The Hebrew University of Jerusalem, Jerusalem, Israel}
 \email{yitzchak.shmalo@gmail.com}
-\date{8 November 2026}
+\date{8 November 2026; revised 12 November 2026}
 
 \begin{document}
 
@@ -43,21 +43,21 @@ $\Var S=n^2/\bigl(2\sum_i(1+\lambda_i)^{-1}\bigr)$, the sum running over the eig
 
 \section{Introduction}
 
-Let $G=(V,E)$ be a finite connected $d$-regular graph on $n\ge3$ vertices. The antivoter model on $G$ is the
-continuous-time Markov chain on $\{-1,1\}^V$ in which each vertex $v$, at the times of a rate-one Poisson clock,
+Let $G=(V,E)$ be a finite connected $d$-regular graph on $n\ge3$ vertices, simple and undirected. The antivoter model on $G$ is the
+continuous-time Markov chain on $\{-1,1\}^V$ in which each vertex $v$, at the times of a rate-one Poisson clock (the clocks at distinct vertices being independent),
 chooses a neighbour $u$ uniformly at random and sets $\eta_v\coloneqq-\eta_u$. The model goes back to Matloff's
 dissonant voting model on the integer lattice~\cite{Matloff}. On finite graphs it was studied by
 Donnelly and Welsh~\cite{DW}, who showed that when $G$ is neither bipartite nor a cycle the chain is
 irreducible on the $2^n-2$ non-constant configurations; on a bipartite graph it is absorbed in one of the two proper
 $2$-colourings. Write $S=\sum_v\eta_v$ for the opinion margin under a stationary distribution. The antivoter model is a
 standard test case for normal approximation by Stein's method~\cite{RR,Ross}, where $\Var S$ enters as the
-normalising constant; R\"ollin~\cite{Rol} obtains the same rate for translated Poisson approximation in total
-variation, and Chen, Fang and Shao~\cite{CFS} a moderate deviation result on the complete graph. Huber and Reinert~\cite{HR} give an exact sampling algorithm for the stationary distribution,
+normalising constant; R\"ollin~\cite{Rol} obtains the rate of Rinott and Rotar~\cite{RR} for translated Poisson
+approximation in total variation, and Chen, Fang and Shao~\cite{CFS} a moderate deviation result on the complete graph. Huber and Reinert~\cite{HR} give an exact sampling algorithm for the stationary distribution,
 describe it in closed form on the complete graph, and bound its distance from the complete-graph law on multipartite
 graphs by Stein's method.
 
 Section~14.4 of Aldous and Fill~\cite{AF} develops the variance theory: $\E S=0$, $\Var S<n/2$ for every such graph
-(their Proposition~14.22), $2\kappa/d\le\Var S$ with $\kappa$ a cut parameter (Corollary~14.21), and for the complete
+(their Proposition~14.22), $2\kappa/d\le\Var S$, where $\kappa$ is the least number of edges whose removal leaves a bipartite graph (Corollary~14.21), and for the complete
 graph the correlation of two distinct vertices is $-1/(2n-3)$, so that
 \begin{equation}\label{eq:Kn}
 \Var S=\frac{n(n-2)}{2n-3}\qquad (G=K_n).
@@ -75,9 +75,10 @@ with equality if and only if $G=K_n$.
 \end{theorem}
 
 The hypothesis that $G$ is not a cycle, needed for irreducibility, plays no role: the bound holds for every stationary
-distribution, and the odd cycles are covered. Bipartite graphs are excluded because there the stationary distributions are
-mixtures of the two proper colourings, on which $S=\pm(|A|-|B|)$ for the colour classes $A,B$, so $\Var S$ can be of
-order $n^2$.
+distribution, and the odd cycles are covered. Bipartite graphs are excluded because $-1$ is then an eigenvalue of the
+walk and the argument does not apply. Nothing is lost: there the stationary distributions are mixtures of the two proper
+colourings, on which $S=\pm(|A|-|B|)$ for the colour classes $A,B$, and a regular bipartite graph has $|A|=|B|$, so
+$S=0$.
 
 The argument also yields an exact formula for vertex-transitive graphs. Let $P=A_G/d$ be the transition matrix of
 simple random walk, with eigenvalues $1=\lambda_1>\lambda_2\ge\dots\ge\lambda_n>-1$.
@@ -92,7 +93,7 @@ If $G$ is in addition vertex-transitive, then
 For $K_n$ the eigenvalues are $1$ and $-1/(n-1)$ with multiplicity $n-1$, and the corollary returns~\eqref{eq:Kn}. For
 the octahedron $K_{2,2,2}$ ($\lambda=1,0,0,0,-\tfrac12,-\tfrac12$) it gives $36/15=2.4$, and for the prism $C_3\times
 K_2$ ($\lambda=1,\tfrac13,0,0,-\tfrac23,-\tfrac23$) it gives $36/18.5\approx1.9459$; both agree with the exact solution
-of the correlation equations in Table~\ref{tab:small}.
+of the correlation equations in Table~\ref{tab:small}. Here and below $\times$ denotes the Cartesian product of graphs.
 
 \section{The correlation equations}
 
@@ -213,30 +214,34 @@ $\Var S=\frac n4\delta=\frac{n^2}{2\tr Q^{-1}}$, with $\tr Q^{-1}=\sum_i(1+\lamb
 \section{Numerical check}
 
 The correlation equations of Lemma~\ref{lem:eq} form a linear system in the $\binom n2$ unknowns $c(v,w)$, $v\ne w$,
-which we solved exactly for every connected non-bipartite regular graph on at most seven vertices, excluding cycles
+which we solved in rational arithmetic for every connected non-bipartite regular graph on at most seven vertices, excluding cycles
 (Table~\ref{tab:small}), and for $297$ random connected non-bipartite regular graphs with $5\le n\le14$ and $3\le d\le
-n-1$. In every case $\Var S\le n(n-2)/(2n-3)$ with equality exactly for $K_n$, and every diagonal entry of
-$(I+P)^{-1}$ was at least $m^*$, strictly so when $d<n-1$. The formula of Corollary~\ref{cor:vt} agrees with the exact
-solution to within $4\cdot10^{-15}$ on eight non-bipartite vertex-transitive graphs, among them the Petersen graph
-($\Var S=40/13$), $C_3\times C_3$, two circulants and the cycle $C_7$ (where $\Var S=1$).
+n-1$, generated with NetworkX~\cite{HSS} from a fixed seed. In every case $\Var S\le n(n-2)/(2n-3)$ with equality exactly for $K_n$, and every diagonal entry of
+$(I+P)^{-1}$ was at least $m^*$, strictly so when $d<n-1$. The formula of Corollary~\ref{cor:vt} agrees with the
+floating-point solution of the system (NumPy~\cite{NumPy}) to within $4\cdot10^{-15}$ on eight non-bipartite vertex-transitive graphs: the Petersen graph
+($\Var S=40/13$), the octahedron, the prisms $C_3\times K_2$ and $C_5\times K_2$, the torus $C_3\times C_3$, the
+circulant graphs on $\mathbb{Z}_{11}$ with connection set $\{\pm1,\pm3\}$ and on $\mathbb{Z}_{13}$ with connection set
+$\{\pm1,\pm5\}$, and the cycle $C_7$ (where $\Var S=1$).
 
 \begin{table}[ht]
 \centering
-\begin{tabular}{rrrr}
+\begin{tabular}{rlrrr}
 \toprule
-$n$ & graph & $d$ & $\Var S$\\
+$n$ & graph & $d$ & \multicolumn{2}{c}{$\Var S$}\\
 \midrule
-4 & $K_4$ & 3 & 1.6000\\
-5 & $K_5$ & 4 & 2.1429\\
-6 & $K_6$ & 5 & 2.6667\\
-6 & octahedron & 4 & 2.4000\\
-6 & prism $C_3\times K_2$ & 3 & 1.9459\\
-7 & $K_7$ & 6 & 3.1818\\
-7 & $4$-regular (two graphs) & 4 & 2.7067,\ 2.4653\\
+4 & $K_4$ & 3 & $8/5$ & 1.6000\\
+5 & $K_5$ & 4 & $15/7$ & 2.1429\\
+6 & $K_6$ & 5 & $8/3$ & 2.6667\\
+6 & octahedron & 4 & $12/5$ & 2.4000\\
+6 & prism $C_3\times K_2$ & 3 & $72/37$ & 1.9459\\
+7 & $K_7$ & 6 & $35/11$ & 3.1818\\
+7 & complement of $C_7$ & 4 & $203/75$ & 2.7067\\
+7 & complement of $C_3\cup C_4$ & 4 & $249/101$ & 2.4653\\
 \bottomrule
 \end{tabular}
-\caption{Exact stationary variance of $S$ on every connected non-bipartite regular graph with at most seven vertices,
-cycles excluded.}\label{tab:small}
+\caption{Stationary variance of $S$ on every connected non-bipartite regular graph with at most seven vertices,
+cycles excluded, as a fraction and to four decimal places. Here $C_3\cup C_4$ is the disjoint union of a triangle and
+a four-cycle.}\label{tab:small}
 \end{table}
 
 \section*{Acknowledgements and funding}
@@ -264,18 +269,23 @@ Table~\ref{tab:small}, and wrote the paper. The author directed the work and is 
 paper and for decisions concerning its dissemination.
 
 \section*{Data availability}
-No data were used. The code for Table~\ref{tab:small} and for the random-graph check, with its output, is available at
+No external data were used. The code for Table~\ref{tab:small} and for the random-graph check, with its output, is available at
 \url{https://github.com/yspennstate/antivoter-variance-complete-graph}.
 
 The paper is part of the Math Brain project, whose public repository is \url{https://github.com/yspennstate/math-brain-public}~\cite{MathBrainRepo}.
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
 \bibitem{AF} D.~Aldous and J.~A.~Fill, \emph{Reversible Markov Chains and Random Walks on Graphs}, unfinished
 monograph, 2002 (recompiled 2014), \url{https://www.stat.berkeley.edu/~aldous/RWG/book.html}, Section~14.4.
 \bibitem{CFS} L.~H.~Y.~Chen, X.~Fang and Q.-M.~Shao, \emph{From Stein identities to moderate deviations}, Ann. Probab.
 \textbf{41} (2013), 262--293, \url{https://doi.org/10.1214/12-AOP746}.
 \bibitem{DW} P.~Donnelly and D.~Welsh, \emph{The antivoter problem: random $2$-colourings of graphs}, in Graph Theory
 and Combinatorics (Cambridge, 1983), B.~Bollob\'as, ed., Academic Press, London, 1984, 133--144.
+\bibitem{HSS} A.~A.~Hagberg, D.~A.~Schult and P.~J.~Swart, \emph{Exploring network structure, dynamics, and function
+using NetworkX}, in Proceedings of the 7th Python in Science Conference (SciPy 2008), G.~Varoquaux, T.~Vaught and
+J.~Millman, eds., Pasadena, 2008, 11--15.
+\bibitem{NumPy} C.~R.~Harris, K.~J.~Millman, S.~J.~van der Walt et al., \emph{Array programming with NumPy}, Nature
+\textbf{585} (2020), 357--362, \url{https://doi.org/10.1038/s41586-020-2649-2}.
 \bibitem{HR} M.~Huber and G.~Reinert, \emph{The stationary distribution in the antivoter model: exact sampling and
 approximations}, in Stein's Method: Expository Lectures and Applications, IMS Lecture Notes Monogr. Ser.
 \textbf{46}, Inst. Math. Statist., Beachwood, OH, 2004, 79--94, \url{https://doi.org/10.1214/lnms/1196283801}.

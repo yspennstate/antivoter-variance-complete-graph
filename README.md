@@ -16,15 +16,20 @@ simple random walk.
 ## Code
 
 Python 3 with numpy and networkx. The first three scripts solve the linear equations for the pair correlations
-$c(v,w)=\mathbb E[\eta_v\eta_w]$ exactly; the fourth simulates the dynamics.
+$c(v,w)=\mathbb E[\eta_v\eta_w]$ in floating point; the fourth simulates the dynamics; the fifth repeats the first two
+in rational arithmetic.
 
 - `antivoter_var.py`: $\mathrm{Var}\,S$ on every connected non-bipartite regular graph with at most seven vertices
   (cycles excluded), from the networkx graph atlas. Output `antivoter_var.out` (Table 1 of the paper).
 - `check_bound.py`: 297 random connected non-bipartite regular graphs with $5\le n\le14$; checks the diagonal bound on
   $(I+P)^{-1}$ and the variance bound. Output `check_bound.out`.
-- `check_vt.py`: the vertex-transitive formula against the exact solution on eight graphs. Output `check_vt.out`.
+- `check_vt.py`: the vertex-transitive formula against the solution of the system on eight graphs. Output
+  `check_vt.out`.
 - `audit_sim.py`: simulates the antivoter dynamics directly on five graphs and compares $\mathbb E\,S^2$ with the
   vertex-transitive formula and the bound. Output `audit_sim.out`.
+- `exact_check.py`: the same graphs as `antivoter_var.py` and `check_bound.py`, with the correlation equations and the
+  diagonal of $(I+P)^{-1}$ solved over the rationals; asserts the variance bound and the diagonal bound, with equality
+  only for $K_n$. Output `exact_check.out` (the fractions in Table 1).
 
 ## Funding
 

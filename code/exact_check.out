@@ -1,0 +1,9 @@
+atlas n 4 d 3 Var S 8/5
+atlas n 5 d 4 Var S 15/7
+atlas n 6 d 3 Var S 72/37
+atlas n 6 d 4 Var S 12/5
+atlas n 6 d 5 Var S 8/3
+atlas n 7 d 4 Var S 203/75
+atlas n 7 d 4 Var S 249/101
+atlas n 7 d 6 Var S 35/11
+random graphs 297 all checks exact; least gap to the K_n value among non-complete graphs 4/75 0.05333333333333334
